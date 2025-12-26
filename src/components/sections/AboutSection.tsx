@@ -21,10 +21,7 @@ const AboutSection = () => {
               Mutiara Bunda Bidan Siti Rochma adalah klinik persalinan dan kesehatan ibu-anak yang berlokasi di Cikarang Selatan, Bekasi. 
               Klinik ini dikenal dengan pelayanan yang ramah, suasana nyaman dan bersih, serta biaya yang terjangkau.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Berdasarkan ulasan pasien hingga tahun 2025, klinik ini sangat direkomendasikan karena bidan yang komunikatif, 
-              penuh empati, dan memberikan afirmasi positif selama proses persalinan.
-            </p>
+
           </div>
           
           {/* Stats */}
