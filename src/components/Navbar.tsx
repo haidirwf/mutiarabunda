@@ -26,8 +26,8 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Profil", id: "profil" },
-    { label: "Fasilitas", id: "fasilitas" },
     { label: "Layanan", id: "layanan" },
+    { label: "Fasilitas", id: "fasilitas" },
     { label: "Lokasi", id: "lokasi" },
     { label: "Kontak", id: "kontak" },
   ];
