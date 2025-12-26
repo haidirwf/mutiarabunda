@@ -21,7 +21,7 @@ const Index = () => {
         <title>Klinik Mutiara Bunda Bidan Siti Rochma | Persalinan & Kesehatan Ibu Anak Cikarang</title>
         
         {/* ICON TAB WEBSITE */}
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" type="image/png" href="/favicon.ico" />
         
         <meta 
           name="description" 
