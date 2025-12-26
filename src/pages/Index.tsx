@@ -16,7 +16,7 @@ const Index = () => {
     <>
       <Helmet>
         <title>Klinik Mutiara Bunda Bidan Siti Rochma | Persalinan & Kesehatan Ibu Anak Cikarang</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
         <meta 
           name="description" 
           content="Klinik persalinan dan kesehatan ibu-anak di Cikarang Selatan, Bekasi. Pelayanan 24 jam, ramah, nyaman, dan terjangkau. Hubungi kami untuk konsultasi." 
