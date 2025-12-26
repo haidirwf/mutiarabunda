@@ -28,6 +28,7 @@ const Navbar = () => {
     { label: "Profil", id: "profil" },
     { label: "Layanan", id: "layanan" },
     { label: "Fasilitas", id: "fasilitas" },
+    { label: "Layanan", id: "jadwal" },
     { label: "Lokasi", id: "lokasi" },
     { label: "Kontak", id: "kontak" },
   ];

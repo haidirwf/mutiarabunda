@@ -8,7 +8,6 @@ const ScheduleSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 
-  // Layanan Utama (KB ditambahkan di sini)
   const mainSchedules = [
     { 
       id: 1,
@@ -44,7 +43,6 @@ const ScheduleSection = () => {
     },
   ];
 
-  // Layanan Tambahan (Home Care dipindahkan ke sini)
   const additionalSchedules = [
     { 
       id: 4,
@@ -75,7 +73,7 @@ const ScheduleSection = () => {
   };
 
   const PricingCard = ({ item }) => (
-    <div className="relative flex flex-col p-6 rounded-3xl border bg-card text-card-foreground border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl">
+    <div className="relative flex flex-col p-6 rounded-3xl border bg-card text-card-foreground border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl group">
       <div className="mb-4">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-4 bg-primary/10">
           {item.icon}
@@ -104,12 +102,13 @@ const ScheduleSection = () => {
   );
 
   return (
-    <section className="py-16 bg-background">
+    /* ADDED ID: "jadwal" untuk navigasi navbar */
+    <section id="jadwal" className="py-16 bg-background scroll-mt-20">
       <div className="container px-4 mx-auto">
         <div className="max-w-6xl mx-auto">
           
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
+          <div className="text-center max-w-2xl mx-auto mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Tarif & Jam Pelayanan
             </h2>
             <p className="text-muted-foreground text-sm">
@@ -117,13 +116,13 @@ const ScheduleSection = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 animate-fade-in">
             {mainSchedules.map((item) => (
               <PricingCard key={item.id} item={item} />
             ))}
           </div>
 
-          <div className="relative">
+          <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <div className="flex items-center gap-4 mb-8">
               <h3 className="text-xl font-bold whitespace-nowrap text-foreground">Layanan Tambahan</h3>
               <div className="h-px bg-border w-full"></div>
@@ -145,7 +144,7 @@ const ScheduleSection = () => {
           <div className="relative bg-background w-full max-w-md rounded-[2.5rem] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
             <div className="p-4 border-b flex justify-between items-center border-border">
                 <span className="font-bold text-primary px-4 text-sm">Informasi Lengkap</span>
-                <button onClick={closeModal} className="p-2 hover:bg-secondary rounded-full transition-colors">
+                <button onClick={closeModal} className="p-2 hover:bg-secondary rounded-full">
                     <X className="w-5 h-5 text-muted-foreground" />
                 </button>
             </div>
