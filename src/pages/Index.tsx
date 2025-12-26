@@ -42,7 +42,6 @@ const Index = () => {
             <ServicesSection />
           </div>
           <FacilityGallerySection />
-          <ReservationSection />
           <ScheduleSection />
           <LocationSection />
           <div id="kontak">

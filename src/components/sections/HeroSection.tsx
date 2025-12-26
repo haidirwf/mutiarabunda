@@ -1,4 +1,4 @@
-import { Phone, MessageCircle } from "lucide-react";
+import { MapPin, MessageCircle } from "lucide-react"; // Ganti Phone ke MapPin
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-abstract.jpg";
 
@@ -57,7 +57,7 @@ const HeroSection = () => {
               Konsultasi via WhatsApp
             </Button>
             <Button variant="outline" size="lg" onClick={handleScrollToLocation}>
-              <Phone className="w-5 h-5" />
+              <MapPin className="w-5 h-5" /> {/* Icon diganti di sini */}
               Lihat Lokasi
             </Button>
           </div>
