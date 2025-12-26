@@ -14,7 +14,7 @@ const services = [
   },
   {
     icon: Monitor,
-    name: "USG Kehamilan",
+    name: "Pemeriksaan kehamilan dan USG Dokter SpOG",
     description: "Layanan USG dengan suasana nyaman dan memungkinkan pendampingan suami.",
   },
   {

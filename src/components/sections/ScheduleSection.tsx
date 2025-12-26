@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { 
-  Clock, Baby, Stethoscope, Syringe, 
-  Home, Camera, X, CheckCircle2, Heart 
+  Baby, Stethoscope, Syringe, 
+  Home, Camera, X, CheckCircle2, Heart, Maximize2, Scissors
 } from "lucide-react";
 
 const ScheduleSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  
+  // State untuk sub-opsi (khusus Home Care)
+  const [subOption, setSubOption] = useState("default");
 
   const mainSchedules = [
     { 
@@ -15,7 +19,8 @@ const ScheduleSection = () => {
       time: "24 Jam", 
       note: "Siaga setiap saat untuk menyambut buah hati.",
       icon: <Baby className="w-6 h-6 text-primary" />,
-      features: ["Bidan Siaga 24/7", "Ruang Nyaman", "Peralatan Lengkap"]
+      features: ["Bidan Siaga 24/7", "Ruang Nyaman", "Peralatan Lengkap"],
+      image: "src/assets/tarif-persalinan.jpg" 
     },
     { 
       id: 2,
@@ -23,7 +28,8 @@ const ScheduleSection = () => {
       time: "Setiap Hari", 
       note: "Layanan pemeriksaan rutin dan konsultasi medis.",
       icon: <Stethoscope className="w-6 h-6 text-primary" />,
-      features: ["Pemeriksaan Umum", "Konsultasi KIA", "Cek Kesehatan"]
+      features: ["Pemeriksaan Umum", "Konsultasi KIA", "Cek Kesehatan"],
+      image: "src/assets/tarif-konsultasi.jpg"
     },
     { 
       id: 3,
@@ -31,7 +37,8 @@ const ScheduleSection = () => {
       time: "Senin - Sabtu", 
       note: "Pemberian vaksin dan imunisasi dasar lengkap.",
       icon: <Syringe className="w-6 h-6 text-primary" />,
-      features: ["Vaksin Lengkap", "Riwayat Tercatat", "Konsultasi Tumbuh Kembang"]
+      features: ["Vaksin Lengkap", "Riwayat Tercatat", "Konsultasi Tumbuh Kembang"],
+      image: "src/assets/tarif-imunisasi.jpg"
     },
     { 
       id: 6,
@@ -39,7 +46,8 @@ const ScheduleSection = () => {
       time: "Setiap Hari", 
       note: "Konsultasi dan pelayanan keluarga berencana.",
       icon: <Heart className="w-6 h-6 text-primary" />,
-      features: ["KB Suntik & Pil", "Pemasangan IUD/Implan", "Konseling Reproduksi"]
+      features: ["KB Suntik & Pil", "Pemasangan IUD/Implan", "Konseling Reproduksi"],
+      image: "src/assets/tarif-kb.jpg"
     },
   ];
 
@@ -50,7 +58,19 @@ const ScheduleSection = () => {
       time: "Sesuai Janji", 
       note: "Kesehatan keluarga di kenyamanan rumah Anda.",
       icon: <Home className="w-6 h-6 text-primary" />,
-      features: ["Kunjungan Rumah", "Perawatan Pasca Lahir", "Edukasi Ibu"]
+      features: ["Kunjungan Rumah", "Perawatan Pasca Lahir", "Edukasi Ibu"],
+      // TIGA OPSI UNTUK HOME CARE
+      hasOptions: true,
+      options: [
+        { id: "umum", label: "Home Care", icon: <Home className="w-4 h-4" /> },
+        { id: "cukur", label: "Cukur Rambut", icon: <Scissors className="w-4 h-4" /> },
+        { id: "pijat", label: "Pijat", icon: <Heart className="w-4 h-4" /> }
+      ],
+      image: {
+        umum: "src/assets/tarif-homecare-umum.jpg",
+        cukur: "src/assets/tarif-homecare-cukur.jpg",
+        pijat: "src/assets/tarif-homecare-pijat.jpg"
+      }
     },
     { 
       id: 5,
@@ -58,18 +78,31 @@ const ScheduleSection = () => {
       time: "Booking H-3", 
       note: "Abadikan momen pertama buah hati secara profesional.",
       icon: <Camera className="w-6 h-6 text-primary" />,
-      features: ["Properti Aman", "Fotografer Berpengalaman", "Hasil High Res"]
+      features: ["Properti Aman", "Fotografer Berpengalaman", "Hasil High Res"],
+      image: "src/assets/tarif-photoshoot.jpg"
     },
   ];
 
   const openModal = (service) => {
     setSelectedService(service);
+    if (service.hasOptions) {
+      setSubOption(service.options[0].id);
+    }
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedService(null);
+    setIsFullScreen(false);
+  };
+
+  const getCurrentImage = () => {
+    if (!selectedService) return "";
+    if (selectedService.hasOptions) {
+      return selectedService.image[subOption];
+    }
+    return selectedService.image;
   };
 
   const PricingCard = ({ item }) => (
@@ -102,17 +135,15 @@ const ScheduleSection = () => {
   );
 
   return (
-    /* ADDED ID: "jadwal" untuk navigasi navbar */
     <section id="jadwal" className="py-16 bg-background scroll-mt-20">
       <div className="container px-4 mx-auto">
         <div className="max-w-6xl mx-auto">
-          
           <div className="text-center max-w-2xl mx-auto mb-12 animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Tarif & Jam Pelayanan
             </h2>
             <p className="text-muted-foreground text-sm">
-              Kami memberikan transparansi waktu dan pelayanan terbaik untuk kesehatan keluarga Anda.
+              Sentuh tombol detail untuk melihat rincian tarif layanan
             </p>
           </div>
           
@@ -122,12 +153,11 @@ const ScheduleSection = () => {
             ))}
           </div>
 
-          <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <div className="relative animate-fade-in">
             <div className="flex items-center gap-4 mb-8">
-              <h3 className="text-xl font-bold whitespace-nowrap text-foreground">Layanan Tambahan</h3>
+              <h3 className="text-xl font-bold whitespace-nowrap text-foreground text-sm uppercase tracking-widest">Layanan Tambahan</h3>
               <div className="h-px bg-border w-full"></div>
             </div>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {additionalSchedules.map((item) => (
                 <PricingCard key={item.id} item={item} />
@@ -139,33 +169,56 @@ const ScheduleSection = () => {
 
       {/* MODAL POPUP */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal}></div>
-          <div className="relative bg-background w-full max-w-md rounded-[2.5rem] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
-            <div className="p-4 border-b flex justify-between items-center border-border">
-                <span className="font-bold text-primary px-4 text-sm">Informasi Lengkap</span>
-                <button onClick={closeModal} className="p-2 hover:bg-secondary rounded-full">
-                    <X className="w-5 h-5 text-muted-foreground" />
-                </button>
-            </div>
-            <div className="p-6">
-              <div className="aspect-video w-full bg-secondary rounded-2xl mb-4 flex items-center justify-center border border-dashed border-border overflow-hidden">
-                {selectedService?.image ? (
-                    <img src={selectedService.image} alt={selectedService.service} className="w-full h-full object-cover" />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={closeModal}></div>
+
+          <div className={`relative flex flex-col transition-all duration-300 ease-in-out ${
+            isFullScreen ? "w-screen h-screen p-0" : "w-full max-w-lg"
+          }`}>
+            
+            {/* OPSI TOGGLE - TIGA TOMBOL */}
+            {!isFullScreen && selectedService?.hasOptions && (
+              <div className="flex flex-wrap justify-center bg-white/10 backdrop-blur-md p-1.5 rounded-2xl mb-4 border border-white/20 gap-1">
+                {selectedService.options.map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => setSubOption(opt.id)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition-all ${
+                      subOption === opt.id 
+                      ? "bg-white text-primary shadow-lg" 
+                      : "text-white/70 hover:text-white"
+                    }`}
+                  >
+                    {opt.icon} {opt.label}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <div className={`relative overflow-hidden shadow-2xl bg-black/20 ${
+              isFullScreen ? "w-full h-full" : "rounded-3xl aspect-[3/4] md:aspect-auto"
+            }`}>
+              <button onClick={closeModal} className="absolute top-4 right-4 z-[110] p-2 bg-black/20 hover:bg-black/40 backdrop-blur-md text-white rounded-full transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+
+              {!isFullScreen && (
+                  <button onClick={() => setIsFullScreen(true)} className="absolute bottom-4 right-4 z-[110] p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-xl border border-white/20">
+                    <Maximize2 className="w-4 h-4" />
+                  </button>
+              )}
+
+              <div className="w-full h-full flex items-center justify-center cursor-pointer" onClick={() => setIsFullScreen(!isFullScreen)}>
+                {getCurrentImage() ? (
+                  <img 
+                    src={getCurrentImage()} 
+                    alt={selectedService.service} 
+                    className={`max-w-full max-h-full transition-all duration-500 ${isFullScreen ? "object-contain w-full h-full" : "object-contain p-4"}`} 
+                  />
                 ) : (
-                    <p className="text-muted-foreground italic text-xs">Area Gambar {selectedService?.service}</p>
+                  <p className="text-white/50 italic">Gambar tidak tersedia</p>
                 )}
               </div>
-              <h3 className="text-xl font-bold text-center mb-2">{selectedService?.service}</h3>
-              <p className="text-sm text-center text-muted-foreground mb-6 leading-relaxed">
-                {selectedService?.note}
-              </p>
-              <button 
-                onClick={closeModal} 
-                className="w-full py-3 bg-secondary font-bold rounded-xl hover:bg-secondary/80 transition-colors"
-              >
-                Tutup
-              </button>
             </div>
           </div>
         </div>
