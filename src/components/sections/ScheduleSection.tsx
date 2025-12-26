@@ -10,7 +10,7 @@ const ScheduleSection = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   
   // State untuk sub-opsi (khusus Home Care)
-  const [subOption, setSubOption] = useState("default");
+  const [subOption, setSubOption] = useState("umum");
 
   const mainSchedules = [
     { 
@@ -20,7 +20,7 @@ const ScheduleSection = () => {
       note: "Siaga setiap saat untuk menyambut buah hati.",
       icon: <Baby className="w-6 h-6 text-primary" />,
       features: ["Bidan Siaga 24/7", "Ruang Nyaman", "Peralatan Lengkap"],
-      image: "src/assets/tarif-persalinan.jpg" 
+      image: "/assets/tarif-persalinan.jpg" 
     },
     { 
       id: 2,
@@ -29,7 +29,7 @@ const ScheduleSection = () => {
       note: "Layanan pemeriksaan rutin dan konsultasi medis.",
       icon: <Stethoscope className="w-6 h-6 text-primary" />,
       features: ["Pemeriksaan Umum", "Konsultasi KIA", "Cek Kesehatan"],
-      image: "src/assets/tarif-konsultasi.jpg"
+      image: "/assets/tarif-konsultasi.jpg"
     },
     { 
       id: 3,
@@ -38,7 +38,7 @@ const ScheduleSection = () => {
       note: "Pemberian vaksin dan imunisasi dasar lengkap.",
       icon: <Syringe className="w-6 h-6 text-primary" />,
       features: ["Vaksin Lengkap", "Riwayat Tercatat", "Konsultasi Tumbuh Kembang"],
-      image: "src/assets/tarif-imunisasi.jpg"
+      image: "/assets/tarif-imunisasi.jpg"
     },
     { 
       id: 6,
@@ -47,7 +47,7 @@ const ScheduleSection = () => {
       note: "Konsultasi dan pelayanan keluarga berencana.",
       icon: <Heart className="w-6 h-6 text-primary" />,
       features: ["KB Suntik & Pil", "Pemasangan IUD/Implan", "Konseling Reproduksi"],
-      image: "src/assets/tarif-kb.jpg"
+      image: "/assets/tarif-kb.jpg"
     },
   ];
 
@@ -59,7 +59,6 @@ const ScheduleSection = () => {
       note: "Kesehatan keluarga di kenyamanan rumah Anda.",
       icon: <Home className="w-6 h-6 text-primary" />,
       features: ["Kunjungan Rumah", "Perawatan Pasca Lahir", "Edukasi Ibu"],
-      // TIGA OPSI UNTUK HOME CARE
       hasOptions: true,
       options: [
         { id: "umum", label: "Home Care", icon: <Home className="w-4 h-4" /> },
@@ -67,9 +66,9 @@ const ScheduleSection = () => {
         { id: "pijat", label: "Pijat", icon: <Heart className="w-4 h-4" /> }
       ],
       image: {
-        umum: "src/assets/tarif-homecare-umum.jpg",
-        cukur: "src/assets/tarif-homecare-cukur.jpg",
-        pijat: "src/assets/tarif-homecare-pijat.jpg"
+        umum: "/assets/tarif-homecare-umum.jpg",
+        cukur: "/assets/tarif-homecare-cukur.jpg",
+        pijat: "/assets/tarif-homecare-pijat.jpg"
       }
     },
     { 
@@ -79,7 +78,7 @@ const ScheduleSection = () => {
       note: "Abadikan momen pertama buah hati secara profesional.",
       icon: <Camera className="w-6 h-6 text-primary" />,
       features: ["Properti Aman", "Fotografer Berpengalaman", "Hasil High Res"],
-      image: "src/assets/tarif-photoshoot.jpg"
+      image: "/assets/tarif-photoshoot.jpg"
     },
   ];
 
@@ -95,6 +94,7 @@ const ScheduleSection = () => {
     setIsModalOpen(false);
     setSelectedService(null);
     setIsFullScreen(false);
+    setSubOption("umum");
   };
 
   const getCurrentImage = () => {
@@ -169,16 +169,15 @@ const ScheduleSection = () => {
 
       {/* MODAL POPUP */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={closeModal}></div>
 
           <div className={`relative flex flex-col transition-all duration-300 ease-in-out ${
             isFullScreen ? "w-screen h-screen p-0" : "w-full max-w-lg"
           }`}>
             
-            {/* OPSI TOGGLE - TIGA TOMBOL */}
             {!isFullScreen && selectedService?.hasOptions && (
-              <div className="flex flex-wrap justify-center bg-white/10 backdrop-blur-md p-1.5 rounded-2xl mb-4 border border-white/20 gap-1">
+              <div className="flex flex-wrap justify-center bg-white/10 backdrop-blur-md p-1.5 rounded-2xl mb-4 border border-white/20 gap-1 self-center">
                 {selectedService.options.map((opt) => (
                   <button
                     key={opt.id}
