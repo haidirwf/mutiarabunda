@@ -18,19 +18,27 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Klinik Mutiara Bunda Bidan Siti Rochma | Persalinan & Kesehatan Ibu Anak Cikarang</title>
+        <title>
+          Klinik Mutiara Bunda Bidan Siti Rochma | Persalinan & Kesehatan Ibu Anak
+          Cikarang
+        </title>
 
-        {/* ICON TAB WEBSITE */}
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="icon" type="image/png" href="/favicon.png" />
 
-        <meta 
-          name="description" 
-          content="Klinik persalinan dan kesehatan ibu-anak di Cikarang Selatan, Bekasi. Pelayanan 24 jam, ramah, nyaman, dan terjangkau. Hubungi kami untuk konsultasi." 
+        <meta
+          name="description"
+          content="Klinik persalinan dan kesehatan ibu-anak di Cikarang Selatan, Bekasi. Pelayanan 24 jam, ramah, nyaman, dan terjangkau."
         />
-        <meta name="keywords" content="klinik bersalin, bidan cikarang, persalinan cikarang, kesehatan ibu anak, USG kehamilan, ANC, Mutiara Bunda, Siti Rochma, Bekasi" />
+        <meta
+          name="keywords"
+          content="klinik bersalin, bidan cikarang, persalinan cikarang, kesehatan ibu anak, USG kehamilan"
+        />
         <meta property="og:title" content="Klinik Mutiara Bunda Bidan Siti Rochma" />
-        <meta property="og:description" content="Pelayanan persalinan dan kesehatan ibu-anak yang ramah, nyaman, dan terjangkau di Cikarang Selatan." />
+        <meta
+          property="og:description"
+          content="Pelayanan persalinan dan kesehatan ibu-anak yang ramah, nyaman, dan terjangkau."
+        />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://mutiarabunda.netlify.app/" />
       </Helmet>
@@ -59,3 +67,5 @@ const Index = () => {
     </>
   );
 };
+
+export default Index;
