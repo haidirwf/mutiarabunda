@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { 
   Clock, Baby, Stethoscope, Syringe, 
-  Home, Camera, X, CheckCircle2 
+  Home, Camera, X, CheckCircle2, Heart 
 } from "lucide-react";
 
 const ScheduleSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 
+  // Layanan Utama (KB ditambahkan di sini)
   const mainSchedules = [
     { 
       id: 1,
@@ -34,6 +35,18 @@ const ScheduleSection = () => {
       features: ["Vaksin Lengkap", "Riwayat Tercatat", "Konsultasi Tumbuh Kembang"]
     },
     { 
+      id: 6,
+      service: "Layanan KB", 
+      time: "Setiap Hari", 
+      note: "Konsultasi dan pelayanan keluarga berencana.",
+      icon: <Heart className="w-6 h-6 text-primary" />,
+      features: ["KB Suntik & Pil", "Pemasangan IUD/Implan", "Konseling Reproduksi"]
+    },
+  ];
+
+  // Layanan Tambahan (Home Care dipindahkan ke sini)
+  const additionalSchedules = [
+    { 
       id: 4,
       service: "Home Care", 
       time: "Sesuai Janji", 
@@ -41,9 +54,6 @@ const ScheduleSection = () => {
       icon: <Home className="w-6 h-6 text-primary" />,
       features: ["Kunjungan Rumah", "Perawatan Pasca Lahir", "Edukasi Ibu"]
     },
-  ];
-
-  const additionalSchedules = [
     { 
       id: 5,
       service: "Newborn Photoshoot", 
@@ -64,37 +74,26 @@ const ScheduleSection = () => {
     setSelectedService(null);
   };
 
-  // Komponen Kartu Pricing (Tanpa Logika Highlight)
   const PricingCard = ({ item }) => (
     <div className="relative flex flex-col p-6 rounded-3xl border bg-card text-card-foreground border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl">
       <div className="mb-4">
-        {/* Ikon Box */}
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-4 bg-primary/10">
           {item.icon}
         </div>
-        
         <h3 className="text-xl font-bold mb-1 text-foreground">{item.service}</h3>
-        <p className="text-sm mb-4 text-muted-foreground">
-          {item.note}
-        </p>
-        
-        {/* Teks Waktu */}
-        <div className="text-2xl font-bold mb-6 text-primary">
-          {item.time}
-        </div>
+        <p className="text-sm mb-4 text-muted-foreground">{item.note}</p>
+        <div className="text-2xl font-bold mb-6 text-primary">{item.time}</div>
       </div>
 
-      {/* List Fitur */}
       <ul className="space-y-3 mb-8 flex-1">
         {item.features?.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm">
-            <CheckCircle2 className="w-4 h-4 text-primary" />
-            <span className="text-foreground">{feature}</span>
+          <li key={i} className="flex items-center gap-2 text-sm text-foreground">
+            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+            <span>{feature}</span>
           </li>
         ))}
       </ul>
 
-      {/* Tombol Action */}
       <button 
         onClick={() => openModal(item)}
         className="w-full py-3 rounded-xl font-bold text-sm bg-primary text-white hover:bg-primary/90 shadow-md transition-all active:scale-95"
@@ -110,25 +109,23 @@ const ScheduleSection = () => {
         <div className="max-w-6xl mx-auto">
           
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
               Tarif & Jam Pelayanan
             </h2>
-            <p className="text-muted-foreground">
-              Pilih layanan yang sesuai dengan kebutuhan kesehatan Anda. Kami memberikan transparansi waktu dan pelayanan terbaik.
+            <p className="text-muted-foreground text-sm">
+              Kami memberikan transparansi waktu dan pelayanan terbaik untuk kesehatan keluarga Anda.
             </p>
           </div>
           
-          {/* Main Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {mainSchedules.map((item) => (
               <PricingCard key={item.id} item={item} />
             ))}
           </div>
 
-          {/* Layanan Tambahan */}
           <div className="relative">
             <div className="flex items-center gap-4 mb-8">
-              <h3 className="text-xl font-bold whitespace-nowrap">Layanan Tambahan</h3>
+              <h3 className="text-xl font-bold whitespace-nowrap text-foreground">Layanan Tambahan</h3>
               <div className="h-px bg-border w-full"></div>
             </div>
             
@@ -146,9 +143,9 @@ const ScheduleSection = () => {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal}></div>
           <div className="relative bg-background w-full max-w-md rounded-[2.5rem] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
-            <div className="p-4 border-b flex justify-between items-center">
+            <div className="p-4 border-b flex justify-between items-center border-border">
                 <span className="font-bold text-primary px-4 text-sm">Informasi Lengkap</span>
-                <button onClick={closeModal} className="p-2 hover:bg-secondary rounded-full">
+                <button onClick={closeModal} className="p-2 hover:bg-secondary rounded-full transition-colors">
                     <X className="w-5 h-5 text-muted-foreground" />
                 </button>
             </div>
@@ -161,8 +158,15 @@ const ScheduleSection = () => {
                 )}
               </div>
               <h3 className="text-xl font-bold text-center mb-2">{selectedService?.service}</h3>
-              <p className="text-sm text-center text-muted-foreground mb-6">{selectedService?.note}</p>
-              <button onClick={closeModal} className="w-full py-3 bg-secondary font-bold rounded-xl hover:bg-secondary/80">Tutup</button>
+              <p className="text-sm text-center text-muted-foreground mb-6 leading-relaxed">
+                {selectedService?.note}
+              </p>
+              <button 
+                onClick={closeModal} 
+                className="w-full py-3 bg-secondary font-bold rounded-xl hover:bg-secondary/80 transition-colors"
+              >
+                Tutup
+              </button>
             </div>
           </div>
         </div>
