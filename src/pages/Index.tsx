@@ -31,6 +31,7 @@ const Index = () => {
         <meta property="og:title" content="Klinik Mutiara Bunda Bidan Siti Rochma" />
         <meta property="og:description" content="Pelayanan persalinan dan kesehatan ibu-anak yang ramah, nyaman, dan terjangkau di Cikarang Selatan." />
         <meta property="og:type" content="website" />
+        <meta name="google-site-verification" content="JMERAK9Zx6Zi73UvIPaD0rTD6MzAtefokLmjOox5K0E" />
         <link rel="canonical" href="https://mutiarabunda.netlify.app/" />
       </Helmet>
       
