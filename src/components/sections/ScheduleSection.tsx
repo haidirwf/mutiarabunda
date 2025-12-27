@@ -24,7 +24,7 @@ const ScheduleSection = () => {
     },
     { 
       id: 2,
-      service: "Konsultasi", 
+      service: "Pemeriksaan USG", 
       time: "Setiap Hari", 
       note: "Layanan pemeriksaan rutin dan konsultasi medis.",
       icon: <Stethoscope className="w-6 h-6 text-primary" />,
