@@ -14,16 +14,7 @@ import facilityRestRoom from "@/assets/facility-rest-room.jpg";
 import facilityWaitingRoom from "@/assets/facility-waiting-room.jpg";
 
 const facilities = [
-  {
-    title: "Ruangan Bersalin",
-    image: facilityDeliveryRoom,
-    alt: "Ruangan Bersalin Klinik Mutiara Bunda",
-  },
-  {
-    title: "Musholla",
-    image: facilityMusholla,
-    alt: "Musholla Klinik Mutiara Bunda",
-  },
+
   {
     title: "Ruangan Praktek",
     image: facilityPracticeRoom,
@@ -35,9 +26,19 @@ const facilities = [
     alt: "Ruangan Istirahat Klinik Mutiara Bunda",
   },
   {
+    title: "Ruangan Bersalin",
+    image: facilityDeliveryRoom,
+    alt: "Ruangan Bersalin Klinik Mutiara Bunda",
+  },
+  {
     title: "Ruang Tunggu",
     image: facilityWaitingRoom,
     alt: "Ruang Tunggu Klinik Mutiara Bunda",
+  },
+  {
+    title: "Musholla",
+    image: facilityMusholla,
+    alt: "Musholla Klinik Mutiara Bunda",
   },
 ];
 
