@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { 
   Baby, Stethoscope, Syringe, 
-  Home, Camera, X, CheckCircle2, Heart, Maximize2, Scissors
+  Home, Camera, X, CheckCircle2, Heart, Maximize2, Scissors, User, Calendar
 } from "lucide-react";
 
 const ScheduleSection = () => {
@@ -9,7 +9,7 @@ const ScheduleSection = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
   
-  // State untuk sub-opsi (khusus Home Care)
+  // State untuk sub-opsi
   const [subOption, setSubOption] = useState("umum");
 
   const mainSchedules = [
@@ -20,7 +20,7 @@ const ScheduleSection = () => {
       note: "Siaga setiap saat untuk menyambut buah hati.",
       icon: <Baby className="w-6 h-6 text-primary" />,
       features: ["Bidan Siaga 24/7", "Ruang Nyaman", "Peralatan Lengkap"],
-      image: "/assets/tarif-persalinan.jpg" 
+      image: "/assets/tarif-persalinan.webp" 
     },
     { 
       id: 2,
@@ -29,7 +29,18 @@ const ScheduleSection = () => {
       note: "Layanan pemeriksaan rutin dan konsultasi medis.",
       icon: <Stethoscope className="w-6 h-6 text-primary" />,
       features: ["Pemeriksaan Umum", "Konsultasi KIA", "Cek Kesehatan"],
-      image: "/assets/tarif-konsultasi.jpg"
+      // TIGA OPSI UNTUK PEMERIKSAAN USG
+      hasOptions: true,
+      options: [
+        { id: "umum", label: "USG", icon: <Stethoscope className="w-4 h-4" /> },
+        { id: "dokter", label: "Jadwal Dokter", icon: <Calendar className="w-4 h-4" /> },
+        { id: "bidan", label: "Jadwal Bidan", icon: <Calendar className="w-4 h-4" /> }
+      ],
+      image: {
+        umum: "/assets/tarif-konsultasi.webp",
+        dokter: "/assets/jadwal-dokter.webp",
+        bidan: "/assets/jadwal-bidan.webp"
+      }
     },
     { 
       id: 3,
@@ -38,7 +49,7 @@ const ScheduleSection = () => {
       note: "Pemberian vaksin dan imunisasi dasar lengkap.",
       icon: <Syringe className="w-6 h-6 text-primary" />,
       features: ["Vaksin Lengkap", "Riwayat Tercatat", "Konsultasi Tumbuh Kembang"],
-      image: "/assets/tarif-imunisasi.jpg"
+      image: "/assets/tarif-imunisasi.webp"
     },
     { 
       id: 6,
@@ -47,7 +58,7 @@ const ScheduleSection = () => {
       note: "Konsultasi dan pelayanan keluarga berencana.",
       icon: <Heart className="w-6 h-6 text-primary" />,
       features: ["KB Suntik & Pil", "Pemasangan IUD/Implan", "Konseling Reproduksi"],
-      image: "/assets/tarif-kb.jpg"
+      image: "/assets/tarif-kb.webp"
     },
   ];
 
@@ -66,19 +77,19 @@ const ScheduleSection = () => {
         { id: "pijat", label: "Pijat", icon: <Heart className="w-4 h-4" /> }
       ],
       image: {
-        umum: "/assets/tarif-homecare-umum.jpg",
-        cukur: "/assets/tarif-homecare-cukur.jpg",
-        pijat: "/assets/tarif-homecare-pijat.jpg"
+        umum: "/assets/tarif-homecare-umum.webp",
+        cukur: "/assets/tarif-homecare-cukur.webp",
+        pijat: "/assets/tarif-homecare-pijat.webp"
       }
     },
     { 
       id: 5,
       service: "Newborn Photoshoot", 
-      time: "Booking H-3", 
+      time: "Sesuai Janji", 
       note: "Abadikan momen pertama buah hati secara profesional.",
       icon: <Camera className="w-6 h-6 text-primary" />,
-      features: ["Properti Aman", "Fotografer Berpengalaman", "Hasil High Res"],
-      image: "/assets/tarif-photoshoot.jpg"
+      features: ["Properti Aman", "Fotografer Berpengalaman", "Hasil Berkualitas"],
+      image: "/assets/tarif-photoshoot.webp"
     },
   ];
 
@@ -176,6 +187,7 @@ const ScheduleSection = () => {
             isFullScreen ? "w-screen h-screen p-0" : "w-full max-w-lg"
           }`}>
             
+            {/* OPSI TOGGLE - DINAMIS UNTUK USG & HOME CARE */}
             {!isFullScreen && selectedService?.hasOptions && (
               <div className="flex flex-wrap justify-center bg-white/10 backdrop-blur-md p-1.5 rounded-2xl mb-4 border border-white/20 gap-1 self-center">
                 {selectedService.options.map((opt) => (
@@ -215,7 +227,7 @@ const ScheduleSection = () => {
                     className={`max-w-full max-h-full transition-all duration-500 ${isFullScreen ? "object-contain w-full h-full" : "object-contain p-4"}`} 
                   />
                 ) : (
-                  <p className="text-white/50 italic">Gambar tidak tersedia</p>
+                  <p className="text-white/50 italic text-sm">Gambar tidak tersedia</p>
                 )}
               </div>
             </div>

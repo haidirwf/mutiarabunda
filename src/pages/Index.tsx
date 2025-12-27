@@ -24,7 +24,7 @@ const Index = () => {
         </title>
 
         <link rel="icon" type="image/png" href="/favicon.ico" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" type="image/webp" href="/favicon.webp" />
 
         <meta
           name="description"

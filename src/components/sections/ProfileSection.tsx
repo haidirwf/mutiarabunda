@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import bidanPhoto from "@/assets/bidan-photo.jpg";
+import bidanPhoto from "@/assets/bidan-photo.webp";
 import { Award, Heart, Users } from "lucide-react";
 
 const AnimatedNumber = ({ value, duration = 2000 }) => {

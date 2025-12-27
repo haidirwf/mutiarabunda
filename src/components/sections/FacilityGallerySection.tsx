@@ -7,11 +7,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import facilityDeliveryRoom from "@/assets/facility-delivery-room.jpg";
-import facilityMusholla from "@/assets/facility-musholla.jpg";
-import facilityPracticeRoom from "@/assets/facility-practice-room.jpg";
-import facilityRestRoom from "@/assets/facility-rest-room.jpg";
-import facilityWaitingRoom from "@/assets/facility-waiting-room.jpg";
+import facilityDeliveryRoom from "@/assets/facility-delivery-room.webp";
+import facilityMusholla from "@/assets/facility-musholla.webp";
+import facilityPracticeRoom from "@/assets/facility-practice-room.webp";
+import facilityRestRoom from "@/assets/facility-rest-room.webp";
+import facilityWaitingRoom from "@/assets/facility-waiting-room.webp";
 
 const facilities = [
 
@@ -21,9 +21,9 @@ const facilities = [
     alt: "Ruangan Praktek Klinik Mutiara Bunda",
   },
   {
-    title: "Ruangan Istirahat",
+    title: "Ruangan Nifas",
     image: facilityRestRoom,
-    alt: "Ruangan Istirahat Klinik Mutiara Bunda",
+    alt: "Ruangan Nifas Klinik Mutiara Bunda",
   },
   {
     title: "Ruangan Bersalin",

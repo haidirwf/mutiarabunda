@@ -1,6 +1,6 @@
 import { MapPin, MessageCircle } from "lucide-react"; // Ganti Phone ke MapPin
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-abstract.jpg";
+import heroBg from "@/assets/hero-abstract.webp";
 
 const HeroSection = () => {
   const handleWhatsApp = () => {
