@@ -1,11 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import React from "react";
+import { Card } from "@/components/ui/card";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 
 import facilityDeliveryRoom from "@/assets/facility-delivery-room.webp";
 import facilityMusholla from "@/assets/facility-musholla.webp";
@@ -14,101 +14,86 @@ import facilityRestRoom from "@/assets/facility-rest-room.webp";
 import facilityWaitingRoom from "@/assets/facility-waiting-room.webp";
 
 const facilities = [
-
-  {
-    title: "Ruangan Praktek",
-    image: facilityPracticeRoom,
-    alt: "Ruangan Praktek Klinik Mutiara Bunda",
-  },
-  {
-    title: "Ruangan Nifas",
-    image: facilityRestRoom,
-    alt: "Ruangan Nifas Klinik Mutiara Bunda",
-  },
-  {
-    title: "Ruangan Bersalin",
-    image: facilityDeliveryRoom,
-    alt: "Ruangan Bersalin Klinik Mutiara Bunda",
-  },
-  {
-    title: "Ruang Tunggu",
-    image: facilityWaitingRoom,
-    alt: "Ruang Tunggu Klinik Mutiara Bunda",
-  },
-  {
-    title: "Musholla",
-    image: facilityMusholla,
-    alt: "Musholla Klinik Mutiara Bunda",
-  },
+  { title: "Ruang Praktek", category: "Konsultasi", image: facilityPracticeRoom },
+  { title: "Ruang Nifas", category: "Pemulihan", image: facilityRestRoom },
+  { title: "Ruang Bersalin", category: "Persalinan", image: facilityDeliveryRoom },
+  { title: "Ruang Tunggu", category: "Keluarga", image: facilityWaitingRoom },
+  { title: "Musholla", category: "Ibadah", image: facilityMusholla },
 ];
 
 const FacilityGallerySection = () => {
+  const brandColor = "#EC93BF";
+
   return (
-    <section id="fasilitas" className="section-padding bg-secondary/30">
-      <div className="container-narrow">
+    <section id="fasilitas" className="py-20 bg-white overflow-hidden">
+      {/* Custom Style untuk Dots Biru */}
+      <style>{`
+        #fasilitas .swiper-pagination-bullet-active {
+          background: #3B82F6 !important;
+          width: 24px !important;
+          border-radius: 4px !important;
+          transition: all 0.3s ease;
+        }
+        #fasilitas .swiper-pagination {
+          bottom: 0 !important;
+        }
+      `}</style>
+
+      <div className="container mx-auto px-6 lg:px-4">
+        
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Fasilitas Klinik
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Beberapa fasilitas utama yang tersedia di Klinik Mutiara Bunda untuk
-            kenyamanan ibu dan keluarga.
+        <div className="max-w-xl mb-12">
+          <div className="space-y-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+              Fasilitas <div className="inline" style={{ color: brandColor }}>Klinik</div>
+            </h2>
+          </div>
+          <p className="mt-3 text-slate-500 text-sm md:text-base leading-relaxed font-medium">
+            Lingkungan yang dirancang khusus untuk kenyamanan dan keamanan Ibu serta buah hati selama masa perawatan.
           </p>
         </div>
 
-        {/* Carousel */}
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="relative"
-        >
-          <CarouselContent className="-ml-4">
+        {/* Carousel Area */}
+        <div className="relative">
+          <Swiper
+            slidesPerView={1.2}
+            spaceBetween={20}
+            grabCursor={true}
+            pagination={{ clickable: true, dynamicBullets: true }}
+            modules={[Pagination]}
+            breakpoints={{
+              640: { slidesPerView: 2.2 },
+              1024: { slidesPerView: 3.2 },
+              1280: { slidesPerView: 4 }
+            }}
+            className="!pb-14"
+          >
             {facilities.map((facility, index) => (
-              <CarouselItem
-                key={index}
-                className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
-              >
-                <Card className="overflow-hidden border-0 shadow-card hover:shadow-elegant transition-all duration-300">
-                  <div className="aspect-[4/3] overflow-hidden">
+              <SwiperSlide key={index}>
+                <div className="group cursor-pointer">
+                  <Card className="relative overflow-hidden rounded-[2.5rem] border-none shadow-md aspect-square">
                     <img
                       src={facility.image}
-                      alt={facility.alt}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      alt={facility.title}
+                      className="w-full h-full object-cover"
                     />
-                  </div>
-                  <CardContent className="p-4 bg-background">
-                    <h3 className="text-lg font-semibold text-foreground text-center">
-                      {facility.title}
-                    </h3>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
+                    
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-70 group-hover:opacity-85 transition-opacity" />
 
-          {/* Navigation – Visible on Mobile & Desktop */}
-          <CarouselPrevious
-            className="
-              absolute left-2 top-1/2 -translate-y-1/2
-              h-9 w-9
-              bg-background/80 backdrop-blur
-              shadow-md
-              hover:bg-background
-            "
-          />
-          <CarouselNext
-            className="
-              absolute right-2 top-1/2 -translate-y-1/2
-              h-9 w-9
-              bg-background/80 backdrop-blur
-              shadow-md
-              hover:bg-background
-            "
-          />
-        </Carousel>
+                    <div className="absolute inset-0 p-8 flex flex-col justify-end transition-transform duration-500 group-hover:translate-y-[-4px]">
+                      <p className="text-pink-300 font-bold text-[10px] tracking-widest mb-1">
+                        {facility.category}
+                      </p>
+                      <h3 className="text-lg font-bold text-white leading-tight">
+                        {facility.title}
+                      </h3>
+                    </div>
+                  </Card>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </section>
   );

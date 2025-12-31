@@ -14,7 +14,7 @@ const AnimatedNumber = ({ value, duration = 2000 }) => {
           setHasAnimated(true);
           let start = 0;
           const end = parseInt(value);
-          const totalFrames = Math.min(end, 100); 
+          const totalFrames = 60; 
           const increment = end / totalFrames;
           const timer = setInterval(() => {
             start += increment;
@@ -29,7 +29,6 @@ const AnimatedNumber = ({ value, duration = 2000 }) => {
       },
       { threshold: 0.5 }
     );
-
     if (countRef.current) observer.observe(countRef.current);
     return () => observer.disconnect();
   }, [value, duration, hasAnimated]);
@@ -38,47 +37,67 @@ const AnimatedNumber = ({ value, duration = 2000 }) => {
 };
 
 const ProfileSection = () => {
+  const brandColor = "#EC93BF";
+
   return (
-    <section id="profil" className="py-16 bg-background">
-      <div className="container px-4 mx-auto max-w-5xl">
-        <div className="grid md:grid-cols-12 gap-8 md:gap-16 items-center">
+    <section id="profil" className="py-16 bg-white">
+      <div className="container px-6 mx-auto max-w-4xl">
+        <div className="flex flex-col md:flex-row items-center gap-8 lg:gap-12 bg-slate-50/50 p-6 md:p-10 rounded-[2.5rem] border border-slate-100">
           
-          {/* Image Container */}
-          <div className="md:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <img src={bidanPhoto} alt="Bidan Siti Rochma" className="w-full aspect-square object-cover" />
+          {/* Image - Slimmed Down */}
+          <div className="w-40 h-40 md:w-56 md:h-56 shrink-0 relative">
+            <div className="absolute inset-0 rounded-full border-4 border-white shadow-lg overflow-hidden">
+              <img 
+                src={bidanPhoto} 
+                alt="Bidan Siti Rochma" 
+                className="w-full h-full object-cover" 
+              />
+            </div>
+            {/* Minimalist Experience Badge */}
+            <div 
+              className="absolute -bottom-2 -right-2 w-12 h-12 rounded-full border-4 border-white flex items-center justify-center text-[10px] font-bold text-white shadow-md"
+              style={{ backgroundColor: brandColor }}
+            >
+              10th+
             </div>
           </div>
 
-          {/* Content Container */}
-          <div className="md:col-span-7 space-y-6">
-            <div className="space-y-2">
-              <span className="text-sm font-semibold text-primary uppercase tracking-widest">Profil Bidan</span>
-              <h2 className="text-3xl md:text-4xl font-bold">Bidan Siti Rochma</h2>
+          {/* Text Side - Concise */}
+          <div className="flex-1 space-y-4 text-center md:text-left">
+            <div className="space-y-1">
+              <h2 className="text-3xl font-bold text-slate-900 tracking-tight">
+                Bidan <span style={{ color: brandColor }}>Siti Rochma</span>
+              </h2>
             </div>
 
-            <p className="text-muted-foreground text-lg">
-              Bidan Siti Rochma adalah bidan profesional berpengalaman dalam pelayanan persalinan.
+            <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-xl font-medium">
+              Profesional berlisensi dengan dedikasi tinggi dalam mendampingi persalinan keluarga. Kami mengutamakan keamanan medis dan kenyamanan emosional bagi Ibu dan bayi.
             </p>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="text-center p-4 rounded-xl bg-secondary/30">
-                <Users className="w-5 h-5 text-primary mx-auto mb-2" />
-                <p className="text-xl font-bold"><AnimatedNumber value={1000} />+</p>
-                <p className="text-[10px] uppercase text-muted-foreground">Persalinan</p>
+            {/* Stats - Hyper Minimalist Row */}
+            <div className="flex items-center justify-center md:justify-start gap-8 pt-2">
+              <div className="text-left">
+                <div className="flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5 text-pink-300" />
+                  <span className="text-lg font-bold text-slate-900 leading-none">
+                    <AnimatedNumber value={1000} />+
+                  </span>
+                </div>
+                <p className="text-[9px] font-bold text-slate-400 mt-1 tracking-tighter">Persalinan</p>
               </div>
-              <div className="text-center p-4 rounded-xl bg-secondary/30">
-                <Award className="w-5 h-5 text-primary mx-auto mb-2" />
-                <p className="text-xl font-bold"><AnimatedNumber value={10} />+</p>
-                <p className="text-[10px] uppercase text-muted-foreground">Tahun Pengalaman</p>
-              </div>
-              <div className="text-center p-4 rounded-xl bg-secondary/30">
-                <Heart className="w-5 h-5 text-primary mx-auto mb-2" />
-                <p className="text-xl font-bold">24/7</p>
-                <p className="text-[10px] uppercase text-muted-foreground">Melayani</p>
+
+              <div className="w-px h-6 bg-slate-200" />
+
+              <div className="text-left">
+                <div className="flex items-center gap-1.5">
+                  <Heart className="w-3.5 h-3.5 text-pink-300" />
+                  <span className="text-lg font-bold text-slate-900 leading-none">24/7</span>
+                </div>
+                <p className="text-[9px] font-bold text-slate-400 mt-1 tracking-tighter">Siaga Penuh</p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

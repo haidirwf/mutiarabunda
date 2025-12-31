@@ -5,10 +5,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import ProfileSection from "@/components/sections/ProfileSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import FacilityGallerySection from "@/components/sections/FacilityGallerySection";
-import ReservationSection from "@/components/sections/ReservationSection";
 import ScheduleSection from "@/components/sections/ScheduleSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import GoogleReviewsSection from "@/components/sections/GoogleReviewsSection";
 import LocationSection from "@/components/sections/LocationSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/Footer";
@@ -43,24 +40,46 @@ const Index = () => {
         <link rel="canonical" href="https://mutiarabunda.netlify.app/" />
       </Helmet>
 
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-white">
         <Navbar />
+        
         <main>
+          {/* 1. HERO: Visual pembuka yang kuat */}
           <div id="hero">
             <HeroSection />
           </div>
+
+          {/* 2. ABOUT: Perkenalan singkat (White Background) */}
           <AboutSection />
-          <ProfileSection />
-          <div id="layanan">
+
+          {/* 3. SERVICES: Solusi yang ditawarkan (Light Gray Background untuk kontras) */}
+          <div id="layanan" className="bg-slate-50/50">
             <ServicesSection />
           </div>
-          <FacilityGallerySection />
-          <ScheduleSection />
+
+          {/* 4. PROFILE: Membangun trust lewat sosok Bidan (White Background) */}
+          <div id="profil">
+            <ProfileSection />
+          </div>
+
+          {/* 5. FACILITY: Bukti kenyamanan tempat (Light Gray Background) */}
+          <div id="fasilitas" className="bg-slate-50/50 border-y border-slate-100/50">
+            <FacilityGallerySection />
+          </div>
+
+          {/* 6. SCHEDULE & LOCATION: Logistik dan akses (White Background) */}
+          <div id="jadwal">
+            <ScheduleSection />
+          </div>
+          
           <LocationSection />
-          <div id="kontak">
+
+          {/* 7. CONTACT: Penutup dan Call to Action (Soft Pink/Gray Background) */}
+          <div id="kontak" className="bg-slate-50/80 border-t border-slate-100">
             <ContactSection />
           </div>
         </main>
+
         <Footer />
         <FloatingWhatsApp />
       </div>

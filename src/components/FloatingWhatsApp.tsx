@@ -1,29 +1,32 @@
+import React from "react";
 import { MessageCircle } from "lucide-react";
 
 const FloatingWhatsApp = () => {
   const handleWhatsApp = () => {
     window.open(
-      "https://wa.me/6285886649580?text=Halo,%20saya%20ingin%20bertanya%20tentang%20Klinik%20Mutiara%20Bunda",
+      "https://wa.me/6285886649580?text=Halo%20Mutiara%20Bunda...",
       "_blank"
     );
   };
 
   return (
-    <button
-      onClick={handleWhatsApp}
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20BD5C] text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:scale-110"
-      aria-label="Chat WhatsApp"
-    >
-      <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform" />
-      
-      {/* Tooltip */}
-      <span className="absolute right-full mr-3 px-3 py-2 bg-foreground text-background text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-        Chat WhatsApp
-      </span>
+    <div className="fixed bottom-6 right-6 z-[100]">
+      <button
+        onClick={handleWhatsApp}
+        className="group relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-[#25D366] text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+      >
+        {/* Pulse effect yang tipis */}
+        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:opacity-0" />
+        
+        {/* Icon */}
+        <MessageCircle className="w-6 h-6 md:w-7 md:h-7" />
 
-      {/* Pulse animation */}
-      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30" />
-    </button>
+        {/* Tooltip Simpel */}
+        <span className="absolute right-full mr-3 px-3 py-1.5 bg-slate-900/80 backdrop-blur-sm text-white text-[11px] font-bold rounded-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-white/10 shadow-xl translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+          Chat Admin
+        </span>
+      </button>
+    </div>
   );
 };
 

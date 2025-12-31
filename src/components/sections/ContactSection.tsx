@@ -1,5 +1,4 @@
 import { MessageCircle, Phone, Instagram } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const contactItems = [
   {
@@ -8,7 +7,7 @@ const contactItems = [
     icon: MessageCircle,
     action: () => window.open("https://wa.me/6285886649580?text=Halo,%20saya%20ingin%20konsultasi%20di%20Klinik%20Mutiara%20Bunda", "_blank"),
     buttonText: "Chat Sekarang",
-    variant: "whatsapp" as const,
+    color: "#25D366", // WhatsApp Green
   },
   {
     label: "Telepon",
@@ -16,7 +15,7 @@ const contactItems = [
     icon: Phone,
     action: () => window.open("tel:+6285854664914", "_self"),
     buttonText: "Hubungi",
-    variant: "default" as const,
+    color: "#64748b", // Slate
   },
   {
     label: "Instagram",
@@ -24,45 +23,77 @@ const contactItems = [
     icon: Instagram,
     action: () => window.open("https://instagram.com/mutiarabunda_bidansitirochma", "_blank"),
     buttonText: "Kunjungi",
-    variant: "outline" as const,
+    color: "#E1306C", // Instagram Pink
   },
 ];
 
 const ContactSection = () => {
+  const brandColor = "#EC93BF";
+
   return (
-    <section className="section-padding bg-muted/30">
-      <div className="container-narrow">
-        {/* Section Header */}
-        <div className="text-center space-y-4 mb-10 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Kontak & Konsultasi
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-6 lg:px-4">
+        
+        {/* Header - Penataan konsisten dengan Services & About */}
+        <div className="max-w-xl mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+            Kontak <div className="inline" style={{ color: brandColor }}>Konsultasi</div>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Hubungi kami untuk informasi lebih lanjut atau konsultasi
+          <p className="text-slate-500 text-sm md:text-base leading-relaxed">
+            Hubungi kami untuk informasi lebih lanjut mengenai layanan kesehatan atau konsultasi persalinan.
           </p>
         </div>
         
-        {/* Contact Cards */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {/* Contact Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {contactItems.map((item, index) => (
             <div 
               key={index}
-              className="p-6 rounded-xl bg-background border border-border/50 text-center space-y-4 shadow-soft animate-fade-in hover:shadow-card transition-all duration-300"
-              style={{ animationDelay: `${0.1 * (index + 1)}s` }}
+              className="group p-8 rounded-[2.5rem] bg-slate-50/50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-pink-100/30 transition-all duration-500"
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-secondary">
-                <item.icon className="w-7 h-7 text-primary" />
+              {/* Icon Container */}
+              <div 
+                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:-translate-y-1"
+                style={{ backgroundColor: `${item.color}10` }}
+              >
+                <item.icon className="w-7 h-7" style={{ color: item.color }} />
               </div>
-              <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">{item.label}</p>
-                <p className="font-semibold text-foreground">{item.value}</p>
+
+              {/* Info */}
+              <div className="space-y-4">
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 tracking-widest mb-1">
+                    {item.label}
+                  </p>
+                  <p className="text-lg font-bold text-slate-900">
+                    {item.value}
+                  </p>
+                </div>
+
+                {/* Custom Action Button */}
+                <button 
+                  onClick={item.action}
+                  className="w-full py-4 rounded-2xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2"
+                  style={{ 
+                    backgroundColor: item.color, 
+                    color: '#ffffff',
+                    boxShadow: `0 10px 20px -10px ${item.color}80`
+                  }}
+                >
+                  {item.buttonText}
+                </button>
               </div>
-              <Button variant={item.variant} className="w-full" onClick={item.action}>
-                {item.buttonText}
-              </Button>
             </div>
           ))}
         </div>
+
+        {/* Note Tambahan di bawah */}
+        <div className="mt-12 p-6 rounded-3xl bg-pink-50/50 border border-pink-100/50 text-center">
+          <p className="text-sm text-pink-500 font-medium">
+            Layanan persalinan darurat tersedia 24 jam.
+          </p>
+        </div>
+
       </div>
     </section>
   );

@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Heart } from "lucide-react";
+import { Heart, Star, Clock, Users, Award } from "lucide-react";
 
-// Komponen Pendukung: Animasi Angka Berjalan (Reusable)
-const AnimatedNumber = ({ value, duration = 2000 }) => {
+const AnimatedNumber = ({ value, duration = 1500 }) => {
   const [count, setCount] = useState(0);
   const countRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -12,85 +11,76 @@ const AnimatedNumber = ({ value, duration = 2000 }) => {
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
           setHasAnimated(true);
-          
           let startTime = null;
-          // Membersihkan karakter non-angka seperti '+' atau '★' untuk kalkulasi
           const targetValue = parseInt(value.toString().replace(/[^0-9]/g, ""));
-
           const step = (timestamp) => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / duration, 1);
-            
             setCount(Math.floor(progress * targetValue));
-
-            if (progress < 1) {
-              window.requestAnimationFrame(step);
-            }
+            if (progress < 1) window.requestAnimationFrame(step);
           };
-
           window.requestAnimationFrame(step);
         }
       },
       { threshold: 0.2 }
     );
-
     if (countRef.current) observer.observe(countRef.current);
-    
-    return () => {
-      if (countRef.current) observer.unobserve(countRef.current);
-    };
+    return () => { if (countRef.current) observer.unobserve(countRef.current); };
   }, [value, duration, hasAnimated]);
 
-  return <span ref={countRef}>{count.toLocaleString("id-ID")}</span>;
+  return <div ref={countRef} className="inline">{count.toLocaleString("id-ID")}</div>;
 };
 
 const AboutSection = () => {
+  const brandColor = "#EC93BF";
+
+  const stats = [
+    { value: "24", label: "Jam Layanan", suffix: "", icon: Clock },
+    { value: "10", label: "Tahun Praktik", suffix: "+", icon: Award },
+    { value: "1000", label: "Pasien", suffix: "+", icon: Users },
+    { value: "5", label: "Rating", suffix: "★", icon: Star },
+  ];
+
   return (
-    <section id="tentang" className="section-padding bg-background scroll-mt-20">
-      <div className="container-narrow">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          
-          {/* Section Header */}
-          <div className="space-y-4 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-secondary shadow-sm">
-              <Heart className="w-8 h-8 text-primary" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-              Tentang Klinik Mutiara Bunda
-            </h2>
-          </div>
-          
-          {/* Content */}
-          <div className="space-y-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Mutiara Bunda Bidan Siti Rochma adalah klinik persalinan dan kesehatan ibu-anak yang berlokasi di Cikarang Selatan, Bekasi. 
-              Klinik ini dikenal dengan pelayanan yang ramah, suasana nyaman dan bersih, serta biaya yang terjangkau.
-            </p>
-          </div>
-          
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-8 animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            {[
-              { value: "24", label: "Jam Pelayanan", suffix: "" },
-              { value: "10", label: "Tahun Pengalaman", suffix: "+" },
-              { value: "1000", label: "Pasien Terlayani", suffix: "+" },
-              { value: "5", label: "Rating Pasien", suffix: "★" },
-            ].map((stat, index) => (
-              <div 
-                key={index} 
-                className="p-5 rounded-2xl bg-secondary/40 border border-border/50 hover:bg-secondary/60 transition-colors"
-              >
-                <div className="text-2xl md:text-3xl font-bold text-primary">
-                  <AnimatedNumber value={stat.value} />
-                  {stat.suffix}
-                </div>
-                <div className="text-xs md:text-sm font-medium text-muted-foreground mt-1 uppercase tracking-wide">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
+    <section id="tentang" className="py-16 bg-white scroll-mt-20">
+      <div className="container mx-auto px-6 lg:px-4">
+        
+        {/* Header - Penataan disamakan dengan ServicesSection */}
+        <div className="max-w-xl mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+            Tentang <div className="inline" style={{ color: brandColor }}>Mutiara Bunda</div>
+          </h2>
+          <p className="text-slate-500 text-sm md:text-base leading-relaxed font-medium">
+            Klinik persalinan dan kesehatan ibu-anak di Cikarang Selatan yang mengedepankan suasana nyaman dan pelayanan yang ramah.
+          </p>
         </div>
+        
+        {/* Stats Bar - Minimalist Row Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          {stats.map((stat, index) => (
+            <div 
+              key={index} 
+              className="p-6 rounded-3xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-1 hover:bg-white hover:shadow-xl hover:shadow-pink-100/30 transition-all duration-300 group"
+            >
+              <div 
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:-translate-y-1"
+                style={{ backgroundColor: `${brandColor}15` }}
+              >
+                <stat.icon className="w-5 h-5" style={{ color: brandColor }} />
+              </div>
+              
+              <div className="text-2xl font-bold text-slate-900 leading-none">
+                <AnimatedNumber value={stat.value} />
+                <div className="inline" style={{ color: brandColor }}>{stat.suffix}</div>
+              </div>
+              
+              <div className="text-[10px] font-bold text-slate-400 tracking-widest mt-1">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );
